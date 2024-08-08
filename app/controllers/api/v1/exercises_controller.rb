@@ -4,7 +4,10 @@ class Api::V1::ExercisesController < ApplicationController
 
   def index
     @exercises = @workout.exercises
-    render json: @exercises, status: 200
+      .select('exercises.*, COUNT(exercise_sets.id) AS set_count')
+      .left_joins(:exercise_sets)
+      .group('id')
+    render json: @exercises.as_json( method: :set_count), status: 200
   end
 
   def create

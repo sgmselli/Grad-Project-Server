@@ -10,10 +10,24 @@
 
 User.destroy_all
 Workout.destroy_all
+Exercise.destroy_all
 
 
 user1 = User.create!(email: 'matt@test2.com', password: '123456' , password_confirmation: '123456')
 
-user1.workouts.create!(name: 'push A', completed:false)
+workout = user1.workouts.create!(name: 'Push Day', completed:false)
+workout2 = user1.workouts.create!(name: 'Pull Day', completed:false)
+workout3 = user1.workouts.create!(name: 'Leg Day', completed:false)
+workout3 = user1.workouts.create!(name: 'Upper Body 🏋️‍♂️', completed:false)
+
+exercise1 = workout.exercises.create(name: 'Bench Press')
+workout.exercises.create(name: 'Shoulder Press')
+workout.exercises.create(name: 'Cable Fly')
+workout.exercises.create(name: 'Lateral Raise')
+workout.exercises.create(name: 'Tricep Extension')
+
+exercise1.exercise_sets.create(weight: '80kg', reps: 4)
+
+
 
 

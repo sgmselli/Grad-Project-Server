@@ -28,15 +28,14 @@ class Api::V1::WorkoutsController < ApplicationController
 
   def update
     @workout = Workout.find(params[:id])
-
     attributes = [:name, :completed]
 
     updated_attributes = {}
 
     attributes.each do |attribute| 
-      updated_attributes[attribute.to_s] = params[attribute] if params[attribute].present?
+      updated_attributes[attribute.to_s] = params['0'][attribute] if params["0"][attribute].present?
     end
-
+    
     if @workout.update(updated_attributes)
       render json: {message: 'updated workout successfully'}, status:200
     else

@@ -24,7 +24,7 @@ class Api::V1::ExerciseSetsController < ApplicationController
     updated_attributes = {}
 
     attributes.each do |attribute| 
-      updated_attributes[attribute.to_s] = params[attribute] if params[attribute].present?
+      updated_attributes[attribute.to_s] = params['0'][attribute] if params['0'][attribute].present?
     end
 
     if @exercise_set.update(updated_attributes)

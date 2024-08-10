@@ -15,6 +15,7 @@ Rails.application.routes.draw do
           resources :exercise_sets
         end
       end
+      get 'exercises/all', to: 'exercises#all'
       get 'auth/validate', to: 'sessions#validate'
       post 'sign_in', to: 'sessions#create'
       delete 'sign_out', to: 'sessions#destroy'

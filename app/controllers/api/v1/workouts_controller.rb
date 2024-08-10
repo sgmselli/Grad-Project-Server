@@ -3,7 +3,7 @@ class Api::V1::WorkoutsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @workouts = current_user.workouts
+    @workouts = current_user.all_workouts
     render json: @workouts, status: 200
   end
 

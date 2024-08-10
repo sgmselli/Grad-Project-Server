@@ -1,6 +1,12 @@
 class Api::V1::ExercisesController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :set_workout
+  skip_before_action :set_workout, only: [:all]
+
+  def all 
+    @exercises = current_user.all_exercises
+    render json: @exercises
+  end
 
   def index
     @exercises = @workout.exercises

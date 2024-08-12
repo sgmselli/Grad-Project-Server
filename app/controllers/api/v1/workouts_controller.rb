@@ -8,12 +8,12 @@ class Api::V1::WorkoutsController < ApplicationController
   end
 
   def completed
-    @completed_workouts = current_user.workouts.where(completed: true)
-    render json: @completed_workouts, status: 200
+    @incomplete_workouts = current_user.workouts.where(completed: true).order(date: :desc)
+    render json:  @incomplete_workouts, status: 200
   end
 
   def incomplete
-    @incomplete_workouts = current_user.workouts.where(completed: false)
+    @incomplete_workouts = current_user.workouts.where(completed: false).order(date: :desc)
     render json:  @incomplete_workouts, status: 200
   end
 

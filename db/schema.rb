@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_31_141606) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_10_185027) do
   create_table "exercise_sets", force: :cascade do |t|
     t.float "weight"
     t.integer "reps"
@@ -58,6 +58,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_31_141606) do
     t.integer "user_id"
     t.string "name"
     t.boolean "completed", default: false
+    t.date "date"
   end
 
 end

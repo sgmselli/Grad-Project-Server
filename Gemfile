@@ -2,6 +2,11 @@ source "https://rubygems.org"
 
 ruby "3.3.0"
 
+gem 'dotenv-rails', groups: [:development, :test]
+
+#gem for stripe
+gem 'stripe'
+
 #gem for cors
 gem 'rack-cors', require: 'rack/cors'
 

@@ -15,6 +15,9 @@ Rails.application.routes.draw do
           resources :exercise_sets
         end
       end
+      post 'stripe/webhooks', to: 'webhooks#receive'
+      post 'stripe/subscribe', to: 'subscriptions#create'
+      post 'stripe/checkout', to: 'subscriptions#create_checkout_session'
       get 'exercises/all', to: 'exercises#all'
       get 'auth/validate', to: 'sessions#validate'
       post 'sign_in', to: 'sessions#create'

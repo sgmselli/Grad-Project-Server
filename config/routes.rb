@@ -17,6 +17,8 @@ Rails.application.routes.draw do
       end
       post 'stripe/webhooks', to: 'webhooks#receive'
       post 'stripe/subscribe', to: 'subscriptions#create'
+      delete 'stripe/unsubscribe', to: 'subscriptions#unsubscribe'
+      post 'stripe/cancel_unsubscribe', to: 'subscriptions#cancel_unsubscribe'
       post 'stripe/checkout', to: 'subscriptions#create_checkout_session'
       get 'exercises/all', to: 'exercises#all'
 

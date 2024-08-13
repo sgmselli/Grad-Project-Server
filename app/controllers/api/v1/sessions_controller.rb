@@ -2,11 +2,18 @@ class Api::V1::SessionsController < ApplicationController
   skip_before_action :verify_authenticity_token
   skip_before_action :authenticate_user!, only: [:create]
 
-  def validate 
+  def user_details 
+    if current_user
+      render json: { email: current_user.email, name:current_user.name }
+    else
+      render json: { error: 'Cannot find user'}, status: 500
+    end
+  end
+
+  def validate
     if current_user
       render json: true
     else
-      # puts(current_user.email)
       render json: false
     end
   end

@@ -4,8 +4,12 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  validates :stripe_customer_id, uniqueness: true, allow_nil: true
+
   has_many :workouts, dependent: :destroy
   has_many :exercises, through: :workouts
+
+  after_initialize :set_default_stripe_customer_id, if: :new_record?
 
   def remove_duplicates(arr)
     set = Set.new
@@ -28,5 +32,11 @@ class User < ApplicationRecord
  
   def generate_jwt
     JWT.encode({ user_id: self.id, exp: 24.hours.from_now.to_i }, Rails.application.secret_key_base)
+  end
+
+  private 
+
+  def set_default_stripe_customer_id
+    self.stripe_customer_id ||= '' # Sets the date to today's date
   end
 end

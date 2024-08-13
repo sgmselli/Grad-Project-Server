@@ -8,6 +8,8 @@ class Api::V1::WorkoutsController < ApplicationController
   end
 
   def completed
+    puts(current_user.stripe_customer_id)
+    puts('!!!!')
     @incomplete_workouts = current_user.workouts.where(completed: true).order(date: :desc)
     render json:  @incomplete_workouts, status: 200
   end

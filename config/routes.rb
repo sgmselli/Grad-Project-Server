@@ -19,6 +19,8 @@ Rails.application.routes.draw do
       post 'stripe/subscribe', to: 'subscriptions#create'
       post 'stripe/checkout', to: 'subscriptions#create_checkout_session'
       get 'exercises/all', to: 'exercises#all'
+
+      get 'auth/subscribed', to: 'sessions#check_subscription'
       get 'auth/validate', to: 'sessions#validate'
       post 'sign_in', to: 'sessions#create'
       delete 'sign_out', to: 'sessions#destroy'

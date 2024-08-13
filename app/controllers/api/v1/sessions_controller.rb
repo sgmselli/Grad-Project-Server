@@ -11,6 +11,20 @@ class Api::V1::SessionsController < ApplicationController
     end
   end
 
+  def check_subscription
+    if current_user.stripe_customer_id.present?
+      begin
+        subscription = Stripe::Subscription.retrieve(current_user.stripe_customer_id)
+
+        render json: { subscribed: subscription.status === 'active' }
+      rescue Stripe::StripeError => e
+        render json: {  subscribed: false }
+      end
+    else
+      render json: { subscribed: false }
+    end
+  end
+
   def create 
     user = User.find_for_database_authentication(email: params[:email])
     if user&.valid_password?(params[:password])
@@ -21,6 +35,23 @@ class Api::V1::SessionsController < ApplicationController
       render json: { error: 'invalid email or password'}, status: 400
     end
   end
+
+  # def update
+  #   attributes = [:name, :email, :password, :stripe_customer_id]
+
+  #   updated_attributes = {}
+
+  #   attributes.each do |attribute| 
+  #     updated_attributes[attribute.to_s] = params['0'][attribute] if params["0"][attribute].present?
+  #   end
+    
+  #   if current_user.update(updated_attributes)
+  #     puts(current_user.stripe_customer_id)
+  #     render json: {message: 'updated workout successfully'}, status:200
+  #   else
+  #     render json: { error: 'error updating workout'}, status:500
+  #   end
+  # end
 
   def destroy
     cookies.delete(:jwt)
